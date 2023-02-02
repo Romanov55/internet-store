@@ -1,0 +1,49 @@
+html body {
+    height: 100%;
+    margin: 0;
+}
+
+.main-title {
+    padding: 10px 0 10px 10%;
+    background-color: chartreuse;
+    margin: 0;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+    margin: 0;
+}
+
+.menu li {
+    padding: 10px 1%;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+li a {
+    color: black;
+}
+
+.title-products {
+    margin: 0;
+    padding: 20px 20px;
+}
+
+.search {
+    padding: 0 20px;
+}
+
+.list-products li {
+    border-color: black;
+}
+
+footer {
+    background-color: gray;
+    margin: 0px;
+    padding: 10px 0;
+}
