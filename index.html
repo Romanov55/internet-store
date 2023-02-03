@@ -8,14 +8,12 @@
     <meta name="description" content="internet-store">
     <title>My Online Store</title>
     <link rel="stylesheet" href="style.css">
-    <script src="/index.js" crossorigin=""></script>
 </head>
 <body>
     <header>
       <h1 class="main-title">Мой онлайн магазин</h1>
       <nav>
         <ul class="menu">
-          <li><a href="#">Главная</a></li>
           <li><a href="#">Продукты</a></li>
           <li><a href="#">Корзина</a></li>
           <li><a href="#">Избранное</a></li>
@@ -23,100 +21,47 @@
       </nav>
     </header>
     <main>
-      <h2 class="title-products">Продукты</h2>
-      <form class="result">
-        <input type="text" id="search-input" placeholder="Search for products">
-        <button type="button" id="search-button">Search</button>
+      <h2 class="title-products">Товары</h2>
+      <form class="search">
+        <input name="text" type="text" id="search-input" placeholder="Search for products">
+        <button name="text" type="button" id="search-button">Search</button>
       </form>
+      <div id="list-category">
+        <div data-category="smartfons">
+          <label>
+            <input type="checkbox" value="smartphones" class="checkbox">Смартфоны
+          </label>
+        </div>
+        <div data-category="laptops">
+          <label>
+            <input type="checkbox" value="laptops" class="checkbox">Ноутбуки
+          </label>
+        </div>
+        <div data-category="fragrances">
+          <label>
+            <input type="checkbox" value="fragrances" class="checkbox">Духи
+          </label>
+        </div>
+        <div data-category="skincare">
+          <label>
+            <input type="checkbox" value="skincare" class="checkbox">Крема
+          </label>
+        </div>
+        <div data-category="groceries">
+          <label>
+            <input type="checkbox" value="groceries" class="checkbox">Продукты
+          </label>
+        </div>
+        <div data-category="home-decoration">
+          <label>
+            <input type="checkbox" value="home-decoration" class="checkbox">Декор
+          </label>
+        </div>
+      </div>
       <div class="search-results"></div>
-      <!-- <ul class="list-products"> -->
-        <!-- <li class="products vegetables">
-          <h3 class="item-search">Капуста</h3>
-          <img src="product1.jpg" alt="Product 1">
-          <p>75 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products vegetables">
-          <h3 class="item-search">Огурцы</h3>
-          <img src="product2.jpg" alt="Product 2">
-          <p>150 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products vegetables">
-          <h3 class="item-search">Помидоры</h3>
-          <img src="product3.jpg" alt="Product 3">
-          <p>180 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products fruit">
-          <h3 class="item-search">Апельсины</h3>
-          <img src="product1.jpg" alt="Product 1">
-          <p>135 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products fruit">
-          <h3 class="item-search">Мандарины</h3>
-          <img src="product2.jpg" alt="Product 2">
-          <p>230 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products fruit">
-          <h3 class="item-search">Яблоки</h3>
-          <img src="product3.jpg" alt="Product 3">
-          <p>140 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Курица</h3>
-          <img src="product1.jpg" alt="Product 1">
-          <p>340 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Свинина</h3>
-          <img src="product2.jpg" alt="Product 2">
-          <p>540 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Баранина</h3>
-          <img src="product3.jpg" alt="Product 3">
-          <p>630 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Молоко</h3>
-          <img src="product1.jpg" alt="Product 1">
-          <p>60 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Сметана</h3>
-          <img src="product2.jpg" alt="Product 2">
-          <p>35 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li>
-        <li class="products meat">
-          <h3 class="item-search">Майонез</h3>
-          <img src="product3.jpg" alt="Product 3">
-          <p>75 р</p>
-          <button>Добавить в корзину</button>
-          <button>Добавить в избранное</button>
-        </li> -->
-      <!-- </ul> -->
     </main>
     <footer>
       <p>&copy;2023 Мой онлайн магазин</p>
     </footer>
+  <script src="/index.js" crossorigin=""></script>
 </body>

@@ -19,10 +19,23 @@ html body {
 .menu li {
     padding: 10px 1%;
     margin: 0;
+    list-style-type: none;
 }
 
-li {
+.search-results li {
+    border: 2px solid;
     list-style-type: none;
+    margin: 20px 15px;
+    padding: 10px 15px;
+}
+
+.search-results button {
+    margin: 5px 5px 5px 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 li a {
@@ -46,4 +59,9 @@ footer {
     background-color: gray;
     margin: 0px;
     padding: 10px 0;
+}
+
+img {
+    max-height: 150px;
+    max-width: 300px;
 }
