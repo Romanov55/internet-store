@@ -1,48 +1,44 @@
 const listProducts = document.querySelector('.search-results');
 
-const elLi = (list) => {
-    // создание DOM элементов
-    const liEl = document.createElement('li');
-    const titleElement = document.createElement('h3');
-    const pElPrice = document.createElement('p');
-    const pElRating = document.createElement('p');
-    const buttonElBasket = document.createElement('button');
-    const buttonElFavorites = document.createElement('button');
-    const img = document.createElement('img')
+// функция создания блока для главного списка
+const getBlockLi = (list) => {
+  // создание DOM элементов
+  const liEl = document.createElement('li');
+  const titleElement = document.createElement('h3');
+  const pElPrice = document.createElement('p');
+  const pElRating = document.createElement('p');
+  const buttonElBasket = document.createElement('button');
+  const buttonElFavorites = document.createElement('button');
+  const img = document.createElement('img')
 
-    // именуем данные
-    const nameProduct = list.title;
-    const price = list.price;
-    const discountPercentage = list.discountPercentage;
-    const rating = list.rating;
-    const stock = list.stock;
-    const brand = list.brand;
-    const category = list.category;
-    const thumbnail = list.thumbnail;
-    const images = list.images;
+  // именуем данные
+  const nameProduct = list.title;
+  const price = list.price;
+  const discountPercentage = list.discountPercentage;
+  const rating = list.rating;
+  const category = list.category;
+  const thumbnail = list.thumbnail;
 
-    pElPrice.textContent = `${price} (-${discountPercentage}%)`;
-    pElRating.textContent = `Rating: ${rating}`;
-    img.src = thumbnail
+  // заполняем название и цену
+  pElPrice.textContent = `${price} (-${discountPercentage}%)`;
+  pElRating.textContent = `Rating: ${rating}`;
+  img.src = thumbnail
 
-    // добавляем элементы в блок
-    liEl.append(img)
-    titleElement.textContent = nameProduct;
-    liEl.append(titleElement);
-    liEl.append(pElPrice);
-    liEl.append(pElRating);
-    buttonElBasket.textContent = 'Добавить в корзину';
-    liEl.append(buttonElBasket);
-    buttonElFavorites.textContent = 'Добавить в избранное';
-    liEl.append(buttonElFavorites);
+  // добавляем элементы в блок
+  liEl.append(img)
+  titleElement.textContent = nameProduct;
+  liEl.append(titleElement);
+  liEl.append(pElPrice);
+  liEl.append(pElRating);
+  buttonElBasket.textContent = 'Добавить в корзину';
+  liEl.append(buttonElBasket);
+  buttonElFavorites.textContent = 'Добавить в избранное';
+  liEl.append(buttonElFavorites);
 
-    // добавляем общий класс
-    // liEl.classList.add('product')
-    // добавляем класс к блоку по категории
-    liEl.classList.add(category)
-    return liEl
+  // добавляем класс к блоку по категории
+  liEl.classList.add(category)
+  return liEl
 }
-
 
 // достаём данные из ссылки
 fetch('https://dummyjson.com/products')
@@ -57,20 +53,20 @@ fetch('https://dummyjson.com/products')
 
   .then((products) => {
     // создаём список с классом все продукты
-    const liUl = document.createElement('ul')
-    liUl.classList.add('full-products')
+    const ulEl = document.createElement('ul')
+    ulEl.classList.add('full-products')
     // добавляем блоки в список продуктов
     products.forEach((product) => {
-      liUl.append(elLi(product));
+      ulEl.append(getBlockLi(product));
     })
     // добавляем список в див
-    listProducts.append(liUl);
+    listProducts.append(ulEl);
 
   
     const checkboxes = document.querySelectorAll('.checkbox');
 
     let checkedCategories = [];
-
+    // добавляем активные чекбоксы в массив
     checkboxes.forEach(checkbox => {
       checkbox.addEventListener("change", e => {
         if (e.target.checked) {
@@ -80,32 +76,64 @@ fetch('https://dummyjson.com/products')
             category => category !== e.target.value
           );
         }
-        
+        // фильтруем базу по категориям
         const filteredProducts = products.filter(product =>
-          checkedCategories.includes(elLi(product).className)
+          checkedCategories.includes(getBlockLi(product).className)
         );
-
-        const liUlFilter = document.createElement('ul')
+        // новый фильтрованый список
+        const ulFilter = document.createElement('ul')
+        // опустошаем список товаров
         listProducts.innerHTML = "";
+        // добавляем отфильтрованные блоки в список
         filteredProducts.forEach(product => {
-          liUlFilter.append(elLi(product))
+          ulFilter.append(getBlockLi(product))
         });
-        listProducts.append(liUlFilter);
+        // добавляем в див готовый список
+        listProducts.append(ulFilter);
       });
     });
+    // обходим чекбоксы, если нет активных выводим список
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", e => {
+        checkbox.addEventListener("change", e => {
+          if (checkedCategories.length === 0) {
+            const ulEmpty = document.createElement('ul')
+              // опустошаем список товаров
+              listProducts.innerHTML = "";
+              // добавляем отфильтрованные блоки в список
+              products.forEach(product => {
+                ulEmpty.append(getBlockLi(product));
+              });
+              // добавляем в див готовый список
+              listProducts.append(ulEmpty);
+          }
+        })
+      })
+    })
 
-    // checkboxes.forEach(checkbox => {
-    //   checkbox.addEventListener("change", e => {
-    //     if (!e.target.checked) {
-    //       const liUlFilter = document.createElement('ul')
-    //       listProducts.innerHTML = "";
-    //       products.forEach(product => {
-    //         liUlFilter.append(elLi(product))
-    //       });
-    //       listProducts.append(liUlFilter)
-    //     }
+    // называем элементы формы
+    let searchForm = document.querySelector('.search');
+    let searchInput = document.querySelector('input#search-input');
+    
+    // функция поиска по вводу Enter
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-        
-    //   });
-    // });
+        // вытаскиваем вводимое значени
+        const searchTerm = searchInput.value;
+
+        // фильтруем список товаров по вводимому значению
+        let searchedProducts = products.filter(product => product.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+          const ulSearch = document.createElement('ul')
+          // опустошаем список товаров
+          listProducts.innerHTML = "";
+        searchedProducts.forEach((searchedProduct) => {
+          ulSearch.append(getBlockLi(searchedProduct))
+          
+          // добавляем в див готовый список
+          listProducts.append(ulSearch);
+      })
+    });
+
   })
