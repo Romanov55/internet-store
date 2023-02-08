@@ -1,3 +1,18 @@
+// функция добавления элемента в локальное хранилище
+function addToCart(product, cart) {
+  listCart = [];
+  // Получаем текущую корзину из localStorage
+  if (localStorage.getItem(cart)) {
+    listCart = JSON.parse(localStorage.getItem(cart));
+  }
+  // Добавляем новый товар в корзину
+  if  (!listCart.includes(product)) {
+    listCart.push(product)
+  }
+  // Обновляем корзину в localStorage
+  localStorage.setItem(cart, JSON.stringify(listCart));
+}
+
 // достаём переданный айди
 window.addEventListener("load", function() {
   const productId = localStorage.getItem("productId");
@@ -22,8 +37,11 @@ window.addEventListener("load", function() {
       const descriptionBrand = document.querySelector('#description-brand');
       const descriptionPrice = document.querySelector('#description-price');
       const descriptionPastPrice = document.querySelector('#description-past-price');
-      const descriptionStock = document.querySelector('#description-stock')
+      const descriptionStock = document.querySelector('#description-stock');
+      const buttonElBasket = document.querySelector('.buttonElBasket');
+      const buttonElFavorite = document.querySelector('.buttonElFavorite');
       
+      const idProduct = product.id;
       const name = product.title;
       const description = product.description;
       const price = product.price;
@@ -47,6 +65,16 @@ window.addEventListener("load", function() {
         descriptionPrice.innerHTML = `${price} $`;
         descriptionPastPrice.innerHTML = `${pastPrice} $`;
         descriptionStock.innerHTML = `Остаток: ${stock}`;
+
+        // при клике на кнопку, айди отправляется в корзину
+        buttonElBasket.addEventListener('click', function(event) {
+          addToCart(idProduct, 'cartToBasket');
+        });
+
+        // при клике на кнопку, айди отправляется в избранное
+        buttonElFavorite.addEventListener('click', function(event) {
+          addToCart(idProduct, 'cartToFavorites');
+        });
       }
     })
     
