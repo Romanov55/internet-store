@@ -1,4 +1,17 @@
-const listProducts = document.querySelector('.search-results');
+// функция добавления элемента в локальное хранилище
+function addToCart(product, cartToBasket) {
+  cartToBasket = [];
+  // Получаем текущую корзину из localStorage
+  if (localStorage.getItem('cartToBasket')) {
+    cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
+  }
+  // Добавляем новый товар в корзину
+  if  (!cartToBasket.includes(product)) {
+    cartToBasket.push(product)
+  }
+  // Обновляем корзину в localStorage
+  localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
+}
 
 // функция создания блока для главного списка
 const getBlockLi = (list) => {
@@ -11,7 +24,6 @@ const getBlockLi = (list) => {
   const buttonElFavorites = document.createElement('button');
   const img = document.createElement('img');
   const a = document.createElement('a');
-  a.href = 'product.html';
 
   // именуем данные
   const idProduct = list.id;
@@ -22,68 +34,49 @@ const getBlockLi = (list) => {
   const category = list.category;
   const thumbnail = list.thumbnail;
 
-  // добавляем к блоку айди продукта
-  liEl.id = idProduct;
-
-  // заполняем название и цену
+  // добавляем текст в элементы
   pElPrice.textContent = `${price} $ (-${discountPercentage}%)`;
   pElRating.textContent = `Rating: ${rating}`;
-  img.src = thumbnail
-
-  liEl.append(a);
-  a.classList.add('link-product');
-  // добавляем элементы в блок
-  a.append(img)
   titleElement.textContent = nameProduct;
+  buttonElBasket.textContent = 'Добавить в корзину';
+  buttonElFavorites.textContent = 'Добавить в избранное';
+  // адрес ссылки
+  a.href = 'product.html';
+  // основная картинка
+  img.src = thumbnail
+  
+  // собираем элементы в блок
+  liEl.append(a);
+  a.append(img)
   a.append(titleElement);
   a.append(pElPrice);
   a.append(pElRating);
-  buttonElBasket.textContent = 'Добавить в корзину';
   liEl.append(buttonElBasket);
-  buttonElFavorites.textContent = 'Добавить в избранное';
   liEl.append(buttonElFavorites);
 
-  // добавляем общий класс  в каждому продукту
+  // добавляем атрибуты
+  liEl.id = idProduct;
   liEl.classList.add('product');
-
-  // добавляем класс к блоку по категории
-  liEl.classList.add(category)
-
-  // при клике на товар передаём в локал айди этого товара
+  liEl.classList.add(category);
+  a.classList.add('link-product');
+  
+  // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener("click", function(event) {
-    event.preventDefault();
     localStorage.setItem("productId", idProduct);
     window.location.href = "product.html";
   });
 
-  // функция добавления элемента в локальное хранилище
-  function addToCart(product) {
-    let cartToBasket = [];
-
-    // Получаем текущую корзину из localStorage
-    if (localStorage.getItem('cartToBasket')) {
-      cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
-    }
-    
-    // Добавляем новый товар в корзину
-    if  (!cartToBasket.includes(product)) {
-      cartToBasket.push(product)
-    }
-
-    // Обновляем корзину в localStorage
-    localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
-  }
-
-  // при клике на кнопку айди отправляется в корзину
+  // при клике на кнопку, айди отправляется в корзину
   buttonElBasket.addEventListener('click', function(event) {
-    addToCart(idProduct)
+    addToCart(idProduct, 'cartToBasket');
   });
 
-  // при клике на кнопку айди отправляется в избранное
+  // при клике на кнопку, айди отправляется в избранное
   buttonElFavorites.addEventListener('click', function(event) {
-    localStorage.setItem("productIdFavorites", idProduct);
+    addToCart(idProduct, 'productIdFavorites');
   });
 
+  // отправляем готовый блок
   return liEl
 }
 
@@ -99,15 +92,20 @@ fetch('https://dummyjson.com/products')
   })
 
   .then((products) => {
+    // список полученных продуктов
+    const listProducts = document.querySelector('.search-results');
+
     // создаём список с классом все продукты
-    const ulEl = document.createElement('ul')
-    ulEl.classList.add('full-products')
+    const ulEl = document.createElement('ul');
+    ulEl.classList.add('full-products');
+
     // добавляем блоки в список продуктов
     products.forEach((product) => {
       ulEl.append(getBlockLi(product));
     })
     // добавляем список в див
     listProducts.append(ulEl);
+    
     // достаём все чекбоксы
     const checkboxes = document.querySelectorAll('.checkbox');
 
@@ -123,11 +121,11 @@ fetch('https://dummyjson.com/products')
             category => category !== e.target.value
           );
         }
-        // фильтруем базу по категориям
+        // фильтруем полученную базу по категориям
         const filteredProducts = products.filter(product =>
           checkedCategories.includes(getBlockLi(product).className.split(' ')[1])
         );
-        // новый фильтрованый список
+        // новый список для фильтрованного блока
         const ulFilter = document.createElement('ul')
         ulFilter.classList.add('full-products')
         // опустошаем список товаров
@@ -139,13 +137,13 @@ fetch('https://dummyjson.com/products')
         // добавляем в див готовый список
         listProducts.append(ulFilter);
 
-        //если нет активных выводим список
+        //если нет активных чекбоксов выводим исходный список
         if (checkedCategories.length === 0) {
           const ulEmpty = document.createElement('ul')
           ulEmpty.classList.add('full-products')
           // опустошаем список товаров
           listProducts.innerHTML = "";
-          // добавляем отфильтрованные блоки в список
+          // добавляем блоки в список
           products.forEach(product => {
             ulEmpty.append(getBlockLi(product));
           });
@@ -153,12 +151,11 @@ fetch('https://dummyjson.com/products')
           listProducts.append(ulEmpty);
         }
 
-        // все радио точки
+        // собираем все радио точки
         const radioChecks = document.querySelectorAll('.radio-check');
 
-        // перебираем точки при клике
+        // перебираем точки при клике на чекбокс, отслеживая активный
         radioChecks.forEach((oneRadio) => {
-          // oneRadio.addEventListener('change', function(event) {
           // список отображаемых продуктов
           const displayList = document.querySelectorAll('.product');
           // массив для айди товаров отображаемых на странице
@@ -166,8 +163,9 @@ fetch('https://dummyjson.com/products')
           displayList.forEach((product) => {
             allIdForDisplay.push(product.id)
           })
-          // если кнопка включена и совпадаем с айди - дешевле
+          // если кнопка включена и совпадаем с айди 'дешевле' сортируем по возрастанию цены
           if (oneRadio.checked && oneRadio.id === 'cheaper') {
+            // новый список
             const ulSort = document.createElement('ul')
             ulSort.classList.add('full-products')
             // опустошаем список товаров
@@ -185,11 +183,13 @@ fetch('https://dummyjson.com/products')
                 }
               })
             })
+            // добавляем сортированные блоки в список
             listSort.forEach((itemSort) => {
               ulSort.append(getBlockLi(itemSort));
             })
             // добавляем в див готовый список
             listProducts.append(ulSort);
+            // если включена кнопка дороже, сортируем по убыванию цены
           } else if (oneRadio.checked && oneRadio.id === 'expensive') {
               const ulSort = document.createElement('ul');
               ulSort.classList.add('full-products');
@@ -208,41 +208,45 @@ fetch('https://dummyjson.com/products')
                   }
                 })
               })
+              // добавляем в ul отсортированный блок
               listSort.forEach((itemSort) => {
                 ulSort.append(getBlockLi(itemSort));
               })
+              // добавляем сортированный список в див
               listProducts.append(ulSort);
             }
           })
       });
     });
 
-    // называем элементы формы
+    // достаём элементы формы
     let searchForm = document.querySelector('.search');
     let searchInput = document.querySelector('input#search-input');
     
-    // функция поиска по вводу Enter
+    // функция поиска по вводу
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // вытаскиваем вводимое значени
+        // вытаскиваем вводимое значение
         const searchTerm = searchInput.value;
 
         // фильтруем список товаров по вводимому значению
         let searchedProducts = products.filter(product => product.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
+        // новый список для найденный блоков
           const ulSearch = document.createElement('ul');
           ulSearch.classList.add('full-products');
           // опустошаем список товаров
           listProducts.innerHTML = "";
+        // найденные блоки добавляем в список
         searchedProducts.forEach((searchedProduct) => {
           ulSearch.append(getBlockLi(searchedProduct));
-          
           // добавляем в див готовый список
           listProducts.append(ulSearch);
       })
     });
 
+    // список радио кнопок
     const radioChecks = document.querySelectorAll('.radio-check');
       // перебираем точки при клике
       radioChecks.forEach((oneRadio) => {
@@ -265,14 +269,15 @@ fetch('https://dummyjson.com/products')
             // перебираем список отображаемых айди и списка продуктов из базы
             allIdForDisplay.forEach((id) => {
               products.forEach(product => {
-                // если айди продукта на странице совпадает с айди товара в базе 
+                // если айди продукта на странице совпадает с айди товара в базе добавляем в массив эти товары
                 if (Number(id) === Number(product.id)) {
                   listSort.push(product)
-                  // добавляем в массив отображаемые товары
+                  // сортируем блоки по цене
                   listSort.sort((a, b) => a.price - b.price);
                 }
               })
             })
+            // добавляем сортированные блоки в список
             listSort.forEach((itemSort) => {
               ulSort.append(getBlockLi(itemSort));
             })
@@ -291,14 +296,16 @@ fetch('https://dummyjson.com/products')
                   // если айди продукта на странице совпадает с айди товара в базе 
                   if (Number(id) === Number(product.id)) {
                     listSort.push(product)
-                    // добавляем в массив отображаемые товары
+                    // сортируем блоки по цене
                     listSort.sort((a, b) => b.price - a.price);
                   }
                 })
               })
+              // добавляем сортированные блоки в список
               listSort.forEach((itemSort) => {
                 ulSort.append(getBlockLi(itemSort));
               })
+              // добавляем в див готовый список
               listProducts.append(ulSort);
               // если включена кнопка - отсутсивует
             } else if (oneRadio.checked && oneRadio.id === 'empty') {
@@ -315,14 +322,16 @@ fetch('https://dummyjson.com/products')
                   // если айди продукта на странице совпадает с айди товара в базе 
                   if (Number(id) === Number(product.id)) {
                     listSort.push(product)
-
+                    // сортируем по айди
                     listSort.sort((a, b) => a.id - b.id)
                   }
                 })
               })
+              // добавляем сортированные блоки в список
               listSort.forEach((itemSort) => {
                 ulSort.append(getBlockLi(itemSort));
               })
+              // добавляем в див готовый список
               listProducts.append(ulSort);
             }
             
