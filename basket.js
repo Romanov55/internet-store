@@ -1,16 +1,13 @@
   // Удаление товара из локального хранилища
   function removeFromCart(idProduct) {
     let cartToBasket = [];
-
     // Получаем текущую корзину из localStorage
     if (localStorage.getItem('cartToBasket')) {
       cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
     }
-
     // Удаляем товар из корзины
     cartToBasket = cartToBasket.filter(item => Number(item) !== Number(idProduct));
     console.log(cartToBasket)
-
     // Обновляем корзину в localStorage
     localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
   }
@@ -79,10 +76,11 @@ window.addEventListener("load", function() {
           liEl.append(quantityDiv)
           buttonDelete.textContent = 'Удалить из корзины';
           liEl.append(buttonDelete);
+          ulEl.append(liEl);
 
           // добавляем общий класс  в каждому продукту
           liEl.classList.add('product');
-          ulEl.append(liEl);
+          ulEl.classList.add('full-products')
 
           buttonDelete.addEventListener('click', function(event) {
             removeFromCart(idProduct);
@@ -117,7 +115,6 @@ window.addEventListener("load", function() {
         totalPrice.textContent = `К оплате: ${totalPriceAnswer} $`
       });
     });
-
     totalPrice.textContent = `К оплате: ${totalPriceAnswer} $`;
   })
 
