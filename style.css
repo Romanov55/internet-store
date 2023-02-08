@@ -1,15 +1,21 @@
-html body {
+html {
     height: 100%;
+}
+
+html body {
     margin: 0;
 }
 
 body {
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 * {
     box-sizing: border-box;
 }
+
 .main-title {
     padding: 10px 0 10px 10%;
     background-color: chartreuse;
@@ -20,7 +26,6 @@ main {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    min-height: 100vh;
 }
 
 .menu {
@@ -75,13 +80,6 @@ li a {
     border-color: black;
 }
 
-footer {
-    text-align: center;
-    background-color: gray;
-    margin: 0px;
-    padding: 10px 0;
-}
-
 .link-product img {
     max-height: 150px;
     max-width: 300px;
@@ -101,9 +99,9 @@ a:hover {
 }
 
 .product-description {
+    display: flex;
+    flex-direction: column;
     padding: 0;
-    margin: 0;
-    /* display: flex; */
     margin: 5%;
 }
 
@@ -133,16 +131,73 @@ a:hover {
 
 .images img {
     width: 30%;
+    flex: 1 0 auto;
+}
+
+.div-description {
+    flex: 1 0 auto;
 }
 
 #options {
     padding: 0 15px;
 }
 
+header {
+    flex: 0 0 auto;
+}
 
-@media screen and (min-width: 800px) {
-    .product-description {
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex: 0 0 auto;
+    text-align: center;
+    background-color: gray;
+    margin: 0px;
+    padding: 10px 0;
+}
+
+.block-buttom {
+    flex: 0 0 auto;
+}
+
+.unit-list {
+    flex: 1 0 auto;
+}
+
+.clear-list {
+    margin: 5px 5%;
+    padding: 5px 0;
+    width: 90%;
+}
+
+.total-price {
+    margin: 0 10%;
+}
+
+@media screen and (min-width: 600px) {
+    #checkboxes {
         display: flex;
+        flex-direction: row;
+    }
+
+    #sort-check {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .checkbox {
+        margin: 0 10px;
+    }
+
+    .radio-check {
+        margin: 0 10px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .product-description {
         flex-direction: row;
     }
 }
