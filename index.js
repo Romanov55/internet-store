@@ -64,9 +64,11 @@ const getBlockLi = (list) => {
     if (localStorage.getItem('cartToBasket')) {
       cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
     }
-
+    
     // Добавляем новый товар в корзину
-    cartToBasket.push(product);
+    if  (!cartToBasket.includes(product)) {
+      cartToBasket.push(product)
+    }
 
     // Обновляем корзину в localStorage
     localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
