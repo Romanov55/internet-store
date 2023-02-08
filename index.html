@@ -2,63 +2,77 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="products-store">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="store">
-    <meta name="description" content="internet-store">
+    <meta name="products" content="internet-store">
     <title>My Online Store</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-      <h1 class="main-title">Мой онлайн магазин</h1>
+      <h1 class="main-title"><a href="index.html">Онлайн магазин</a></h1>
       <nav>
         <ul class="menu">
-          <li><a href="#">Продукты</a></li>
-          <li><a href="#">Корзина</a></li>
-          <li><a href="#">Избранное</a></li>
+          <li><a href="index.html">Продукты</a></li>
+          <li><a href="basket.html">Корзина</a></li>
+          <li><a href="favorites.html">Избранное</a></li>
         </ul>
       </nav>
     </header>
     <main>
-      <h2 class="title-products">Товары</h2>
-      <form class="search">
-        <input type="text" id="search-input" placeholder="Search for products">
-        <button type="submit" id="search-button">Search</button>
-      </form>
-      <div id="list-category">
-        <div data-category="smartfons">
-          <label>
-            <input type="checkbox" value="smartphones" class="checkbox">Смартфоны
-          </label>
+      <h2 class="title-products">Список товаров</h2>
+      <div id="options">
+        <form class="search">
+          <input type="text" id="search-input" placeholder="Search for products">
+          <button type="submit" id="search-button">Search</button>
+        </form>
+        <div id="checkboxes">
+          <div data-category="smartfons">
+            <label>
+              <input type="checkbox" value="smartphones" class="checkbox">Смартфоны
+            </label>
+          </div>
+          <div data-category="laptops">
+            <label>
+              <input type="checkbox" value="laptops" class="checkbox">Ноутбуки
+            </label>
+          </div>
+          <div data-category="fragrances">
+            <label>
+              <input type="checkbox" value="fragrances" class="checkbox">Духи
+            </label>
+          </div>
+          <div data-category="skincare">
+            <label>
+              <input type="checkbox" value="skincare" class="checkbox">Крема
+            </label>
+          </div>
+          <div data-category="groceries">
+            <label>
+              <input type="checkbox" value="groceries" class="checkbox">Продукты
+            </label>
+          </div>
+          <div data-category="home-decoration">
+            <label>
+              <input type="checkbox" value="home-decoration" class="checkbox">Декор
+            </label>
+          </div>
         </div>
-        <div data-category="laptops">
-          <label>
-            <input type="checkbox" value="laptops" class="checkbox">Ноутбуки
-          </label>
-        </div>
-        <div data-category="fragrances">
-          <label>
-            <input type="checkbox" value="fragrances" class="checkbox">Духи
-          </label>
-        </div>
-        <div data-category="skincare">
-          <label>
-            <input type="checkbox" value="skincare" class="checkbox">Крема
-          </label>
-        </div>
-        <div data-category="groceries">
-          <label>
-            <input type="checkbox" value="groceries" class="checkbox">Продукты
-          </label>
-        </div>
-        <div data-category="home-decoration">
-          <label>
-            <input type="checkbox" value="home-decoration" class="checkbox">Декор
-          </label>
+        <div id="sort">
+          <p>Сортировка: </p>
+          <div id="sort-check">
+            <input type="radio" class="radio-check" id="empty" name="fav_language" value="empty" checked>
+              <label for="empty">отсутствует</label><br>
+            <input type="radio" class="radio-check" id="cheaper" name="fav_language" value="cheaper">
+              <label for="cheaper">дешевле</label><br>
+            <input type="radio" class="radio-check" id="expensive" name="fav_language" value="expensive">
+              <label for="expensive">дороже</label>
+          </div>
         </div>
       </div>
       <div class="search-results"></div>
+    </div>
     </main>
     <footer>
       <p>&copy;2023 Мой онлайн магазин</p>
