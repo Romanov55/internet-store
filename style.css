@@ -3,10 +3,24 @@ html body {
     margin: 0;
 }
 
+body {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
 .main-title {
     padding: 10px 0 10px 10%;
     background-color: chartreuse;
     margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 100vh;
 }
 
 .menu {
@@ -16,14 +30,24 @@ html body {
     margin: 0;
 }
 
+#checkboxes {
+    margin: 10px 0 0 0;
+}
+
 .menu li {
     padding: 10px 1%;
     margin: 0;
     list-style-type: none;
 }
 
+.full-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .search-results li {
-    border: 2px solid;
+
     list-style-type: none;
     margin: 20px 15px;
     padding: 10px 15px;
@@ -47,21 +71,82 @@ li a {
     padding: 20px 20px;
 }
 
-.search {
-    padding: 0 20px;
-}
-
 .list-products li {
     border-color: black;
 }
 
 footer {
+    text-align: center;
     background-color: gray;
     margin: 0px;
     padding: 10px 0;
 }
 
-img {
+.link-product img {
     max-height: 150px;
     max-width: 300px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: darkslategrey;
+}
+
+.product-title {
+    padding-left: 10%;
+}
+
+.product-description {
+    padding: 0;
+    margin: 0;
+    /* display: flex; */
+    margin: 5%;
+}
+
+#description-price {
+    color: red;
+}
+
+#div-price {
+    display: flex;
+}
+
+#description-price {
+    padding: 0;
+    margin: 0 10px 0 0;
+}
+
+#description-past-price {
+    text-decoration: line-through;
+    color: grey;
+    margin: 0;
+}
+
+#description-button {
+    margin-left: 20px;
+    padding: 0 2rem;
+}
+
+.images img {
+    width: 30%;
+}
+
+#options {
+    padding: 0 15px;
+}
+
+
+@media screen and (min-width: 800px) {
+    .product-description {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+#div-price button {
+    margin: 0 5px;
 }
