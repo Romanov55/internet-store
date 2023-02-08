@@ -1,3 +1,20 @@
+  // Удаление товара из локального хранилища
+  function removeFromCart(idProduct) {
+    let cartToBasket = [];
+
+    // Получаем текущую корзину из localStorage
+    if (localStorage.getItem('cartToBasket')) {
+      cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
+    }
+
+    // Удаляем товар из корзины
+    cartToBasket = cartToBasket.filter(item => Number(item) !== Number(idProduct));
+    console.log(cartToBasket)
+
+    // Обновляем корзину в localStorage
+    localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
+  }
+
 // достаём переданный айди
 window.addEventListener("load", function() {
   let cartToBasket = JSON.parse(localStorage.getItem("cartToBasket"));
@@ -21,7 +38,6 @@ window.addEventListener("load", function() {
           const liEl = document.createElement('li');
           const titleElement = document.createElement('h3');
           const elPrice = document.createElement('p');
-          const buttonPay = document.createElement('button');
           const buttonDelete = document.createElement('button');
           const img = document.createElement('img');
           const a = document.createElement('a');
@@ -30,38 +46,28 @@ window.addEventListener("load", function() {
           // создаём блок колличества заказанного с кнопками
           const quantityDiv = document.createElement('div');
           const quantityEl = document.createElement('input');
-          // const buttonMinus = document.createElement('button');
-          // const buttonPlus = document.createElement('button');
 
           quantityEl.classList.add('quanity');
           quantityEl.setAttribute('type', 'number');
+          quantityEl.setAttribute('min', '1')
           quantityEl.value = 1;
-          quantityEl.classList.add('quanity-block');
-          // buttonMinus.textContent = '-';
-          // buttonMinus.classList.add('quanity-block')
-          // buttonPlus.textContent = '+';
-          // buttonPlus.classList.add('quanity-block')
-
-          // добавляем кнопки и сумму в спеиальный див
-          // quantityDiv.append(buttonMinus);
-          // buttonMinus.classList.add('minus');
+          
+          // добавляем инпут колличества в спеиальный див
           quantityDiv.append(quantityEl);
-          // quantityDiv.append(buttonPlus);
-          // buttonPlus.classList.add('plus');
 
           // именуем данные
           const idProduct = product.id;
           const nameProduct = product.title;
           const priceProduct = product.price;
-          const discountPercentage = product.discountPercentage;
           const thumbnail = product.thumbnail;
         
           // добавляем к блоку айди продукта
           liEl.id = idProduct;
 
           // заполняем название и цену
-          elPrice.textContent = `${priceProduct} $ (-${discountPercentage}%)`;
-          img.src = thumbnail
+          elPrice.textContent = `${priceProduct} $`;
+          elPrice.classList.add('price')
+          img.src = thumbnail;
 
           liEl.append(a);
           a.classList.add('link-product');
@@ -70,57 +76,56 @@ window.addEventListener("load", function() {
           titleElement.textContent = nameProduct;
           a.append(titleElement);
           a.append(elPrice);
-          buttonPay.textContent = 'Оплатить';
           liEl.append(quantityDiv)
-          liEl.append(buttonPay);
           buttonDelete.textContent = 'Удалить из корзины';
           liEl.append(buttonDelete);
 
           // добавляем общий класс  в каждому продукту
           liEl.classList.add('product');
           ulEl.append(liEl);
+
+          buttonDelete.addEventListener('click', function(event) {
+            removeFromCart(idProduct);
+            location.reload();
+          })
         }
-        
       })
     }); 
-    
-    productsBasket.append(ulEl)
+    // добавить список ul  в див
+    productsBasket.append(ulEl);
 
-    // собираем продукты которые в корзине
-    // const displayList = document.querySelectorAll('.product')
+    // собираем данные о колличестве товара в корзине
+    const displayQuaniti = document.querySelectorAll('.quanity')
+    const displayPrice = document.querySelectorAll('.price')
+    let totalPrice = document.querySelector('.total-price')
+    let totalPriceAnswer = 0;
 
-    // displayList.forEach((itemList) => {
+    for (let i = 0; i < displayPrice.length; i += 1) {
+      const price = displayPrice[i].textContent.split(' ')[0];
+      const quanity = displayQuaniti[i].value;
+      totalPriceAnswer += Number(price * quanity);
+    }
 
-    //   console.log(itemList)
+    displayQuaniti.forEach((item) => {
+      item.addEventListener('change', function(event) {
+        totalPriceAnswer = 0
+        for (let i = 0; i < displayPrice.length; i += 1) {
+          const price = displayPrice[i].textContent.split(' ')[0];
+          const quanity = displayQuaniti[i].value;
+          totalPriceAnswer += Number(price * quanity);
+        }
+        totalPrice.textContent = `К оплате: ${totalPriceAnswer} $`
+      });
+    });
 
-    //   const quanityResult = document.querySelector('.quanity');
-    //   const minusButton = document.querySelector('.minus')
-    //   const plusButton = document.querySelector('.plus')
+    totalPrice.textContent = `К оплате: ${totalPriceAnswer} $`;
+  })
 
-      // allBlock.addEventListener('change', function(event) {
-      //   allBlock[0].addEventListener('click', function(e) {
-      //     quanityResult[1].textContent = quanityResult[1].textContent - 1
-      //   })
-      // })
+  const clearBasket = document.querySelector('#clear-basket');
 
-    // });
-
-    })
+  clearBasket.addEventListener('click', function(event) {
+    cartToBasket = [];
+    localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
+    location.reload();
+  })
 });
-
-
-// // Удаление товара из локального хранилища
-// function removeFromCart(productId) {
-//   let cart = [];
-
-//   // Получаем текущую корзину из localStorage
-//   if (localStorage.getItem('cart')) {
-//     cart = JSON.parse(localStorage.getItem('cart'));
-//   }
-
-//   // Удаляем товар из корзины
-//   cart = cart.filter(item => item.id !== productId);
-
-//   // Обновляем корзину в localStorage
-//   localStorage.setItem('cart', JSON.stringify(cart));
-// }
