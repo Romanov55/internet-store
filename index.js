@@ -1,16 +1,16 @@
 // функция добавления элемента в локальное хранилище
-function addToCart(product, cartToBasket) {
-  cartToBasket = [];
+function addToCart(product, cart) {
+  listCart = [];
   // Получаем текущую корзину из localStorage
-  if (localStorage.getItem('cartToBasket')) {
-    cartToBasket = JSON.parse(localStorage.getItem('cartToBasket'));
+  if (localStorage.getItem(cart)) {
+    listCart = JSON.parse(localStorage.getItem(cart));
   }
   // Добавляем новый товар в корзину
-  if  (!cartToBasket.includes(product)) {
-    cartToBasket.push(product)
+  if  (!listCart.includes(product)) {
+    listCart.push(product)
   }
   // Обновляем корзину в localStorage
-  localStorage.setItem('cartToBasket', JSON.stringify(cartToBasket));
+  localStorage.setItem(cart, JSON.stringify(listCart));
 }
 
 // функция создания блока для главного списка
@@ -40,7 +40,7 @@ const getBlockLi = (list) => {
   titleElement.textContent = nameProduct;
   buttonElBasket.textContent = 'Добавить в корзину';
   buttonElFavorites.textContent = 'Добавить в избранное';
-  // адрес ссылки
+  // ссылка на выбранный продукт
   a.href = 'product.html';
   // основная картинка
   img.src = thumbnail
@@ -73,7 +73,7 @@ const getBlockLi = (list) => {
 
   // при клике на кнопку, айди отправляется в избранное
   buttonElFavorites.addEventListener('click', function(event) {
-    addToCart(idProduct, 'productIdFavorites');
+    addToCart(idProduct, 'cartToFavorites');
   });
 
   // отправляем готовый блок
