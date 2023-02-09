@@ -69,6 +69,7 @@ window.addEventListener('load', () => {
             buttonElBasket.style.color = 'black'
             buttonElBasket.style.backgroundColor = 'grey'
             buttonElBasket.setAttribute('onclick', "document.location='/basket.html'")
+            location.reload()
           });
 
           // при клике на кнопку, айди отправляется в избранное
@@ -78,6 +79,7 @@ window.addEventListener('load', () => {
             buttonElFavorites.style.color = 'black'
             buttonElFavorites.style.backgroundColor = 'grey'
             buttonElFavorites.setAttribute('onclick', "document.location='/favorites.html'")
+            location.reload()
           });
         }
       });
