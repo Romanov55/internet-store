@@ -173,16 +173,40 @@ footer {
     margin: 0 10%;
 }
 
-/* button {
-    background-color: #4CAF50; /* Green */
-    /* border: none;
+.button-green {
+    background-color: #4CAF50; 
+    border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px; */ 
-/* } */
+    font-size: 12px;
+}
+
+.button-red {
+    background-color: rgb(235, 24, 24); 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+}
+
+button:active {
+    background-color: grey;
+}
+
+img {
+    min-width: 1em;
+}
+
+
+#div-price button {
+    margin: 0 5px;
+}
 
 @media screen and (min-width: 600px) {
     #checkboxes {
@@ -208,8 +232,14 @@ footer {
     .product-description {
         flex-direction: row;
     }
-}
 
-#div-price button {
-    margin: 0 5px;
+    .images {
+        flex-shrink: 1;
+        width: 50%;
+    }
+
+    .div-description {
+        flex-shrink: 1;
+        width: 50%;
+    }
 }
