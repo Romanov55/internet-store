@@ -18,7 +18,9 @@ const getBlockLi = (list) => {
   // создание DOM элементов
   const liEl = document.createElement('li');
   const titleElement = document.createElement('h3');
-  const pElPrice = document.createElement('p');
+  const divPrice = document.createElement('div');
+  const hPrice = document.createElement('h2');
+  const pLastPrice = document.createElement('p')
   const pElRating = document.createElement('p');
   const buttonElBasket = document.createElement('button');
   const buttonElFavorites = document.createElement('button');
@@ -35,7 +37,7 @@ const getBlockLi = (list) => {
   const { thumbnail } = list;
 
   // добавляем текст в элементы
-  pElPrice.textContent = `${price} $ (-${discountPercentage}%)`;
+  hPrice.textContent = `${price} $`;
   pElRating.textContent = `Rating: ${rating}`;
   titleElement.textContent = title;
   buttonElBasket.textContent = 'Добавить в корзину';
@@ -44,12 +46,17 @@ const getBlockLi = (list) => {
   a.href = 'product.html';
   // основная картинка
   img.src = thumbnail;
+  // прошлая цена
+  const pastPrice = price + (discountPercentage * (price / 100));
+  pLastPrice.textContent = `${Math.floor(pastPrice)} $`;
 
   // собираем элементы в блок
   liEl.append(a);
   a.append(img);
   a.append(titleElement);
-  a.append(pElPrice);
+  a.append(divPrice);
+  divPrice.append(hPrice)
+  divPrice.append(pLastPrice)
   a.append(pElRating);
   liEl.append(buttonElBasket);
   liEl.append(buttonElFavorites);
@@ -59,6 +66,9 @@ const getBlockLi = (list) => {
   liEl.classList.add('product');
   liEl.classList.add(category);
   a.classList.add('link-product');
+  divPrice.classList.add('div-price');
+  hPrice.classList.add('description-price')
+  pLastPrice.classList.add('description-past-price')
 
   // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener('click', () => {
