@@ -69,6 +69,8 @@ const getBlockLi = (list) => {
   divPrice.classList.add('div-price');
   hPrice.classList.add('description-price')
   pLastPrice.classList.add('description-past-price')
+  buttonElBasket.classList.add('button-green')
+  buttonElFavorites.classList.add('button-green')
 
   // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener('click', () => {
