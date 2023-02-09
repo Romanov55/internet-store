@@ -36,6 +36,8 @@ window.addEventListener('load', () => {
         const descriptionStock = document.querySelector('#description-stock');
         const buttonElBasket = document.querySelector('.buttonElBasket');
         const buttonElFavorites = document.querySelector('.buttonElFavorite');
+        const buttonBasketReload = document.querySelector('.button-basket-reload');
+        const buttonFavoritesReload = document.querySelector('.button-favorite-reload');
 
         const { id } = product;
         const { title } = product;
@@ -65,21 +67,26 @@ window.addEventListener('load', () => {
           // при клике на кнопку, айди отправляется в корзину
           buttonElBasket.addEventListener('click', () => {
             addToCart(id, 'cartToBasket');
-            buttonElBasket.textContent = 'Перейти в корзину'
-            buttonElBasket.style.color = 'black'
-            buttonElBasket.style.backgroundColor = 'grey'
-            buttonElBasket.setAttribute('onclick', "document.location='/basket.html'")
-            location.reload()
+            buttonElBasket.style.display = 'none'
+            buttonBasketReload.style.display = 'block'
           });
 
           // при клике на кнопку, айди отправляется в избранное
           buttonElFavorites.addEventListener('click', () => {
             addToCart(id, 'cartToFavorites');
-            buttonElFavorites.textContent = 'Перейти в избранное'
-            buttonElFavorites.style.color = 'black'
-            buttonElFavorites.style.backgroundColor = 'grey'
-            buttonElFavorites.setAttribute('onclick', "document.location='/favorites.html'")
-            location.reload()
+            buttonElFavorites.style.display = 'none'
+            buttonFavoritesReload.style.display = 'block'
+          });
+
+          buttonBasketReload.addEventListener('click', () => {
+            buttonElBasket.style.display = 'block'
+            buttonBasketReload.style.display = 'none'
+          });
+
+          // при клике на кнопку, айди отправляется в избранное
+          buttonFavoritesReload.addEventListener('click', () => {
+            buttonElFavorites.style.display = 'block'
+            buttonFavoritesReload.style.display = 'none'
           });
         }
       });
