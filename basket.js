@@ -71,6 +71,7 @@ window.addEventListener('load', () => {
             a.classList.add('link-product');
             liEl.classList.add('product');
             ulEl.classList.add('full-products');
+            buttonDelete.classList.add('button-red');
             quantityEl.classList.add('quanity');
             quantityEl.setAttribute('type', 'number');
             quantityEl.setAttribute('min', '1');
