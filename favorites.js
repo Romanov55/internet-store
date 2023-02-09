@@ -62,6 +62,7 @@ window.addEventListener('load', () => {
             a.append(titleElement);
             liEl.append(buttonDelete);
             ulEl.append(liEl);
+            buttonDelete.classList.add('button-red');
 
             // при клике на кнопку 'удалить из избранного' продукт удаляется
             buttonDelete.addEventListener('click', () => {
