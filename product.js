@@ -31,8 +31,8 @@ window.addEventListener('load', () => {
         const productDescrip = document.querySelector('#description-prod');
         const descriptionRating = document.querySelector('#description-rating');
         const descriptionBrand = document.querySelector('#description-brand');
-        const descriptionPrice = document.querySelector('#description-price');
-        const descriptionPastPrice = document.querySelector('#description-past-price');
+        const descriptionPrice = document.querySelector('.description-price');
+        const descriptionPastPrice = document.querySelector('.description-past-price');
         const descriptionStock = document.querySelector('#description-stock');
         const buttonElBasket = document.querySelector('.buttonElBasket');
         const buttonElFavorite = document.querySelector('.buttonElFavorite');
@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
           descriptionRating.innerHTML = `Рейтинг: ${rating}`;
           descriptionBrand.innerHTML = `Брэнд: ${brand}`;
           descriptionPrice.innerHTML = `${price} $`;
-          descriptionPastPrice.innerHTML = `${pastPrice} $`;
+          descriptionPastPrice.innerHTML = `${Math.floor(pastPrice)} $`;
           descriptionStock.innerHTML = `Остаток: ${stock}`;
 
           // при клике на кнопку, айди отправляется в корзину
