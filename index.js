@@ -23,7 +23,9 @@ const getBlockLi = (list) => {
   const pLastPrice = document.createElement('p');
   const pElRating = document.createElement('p');
   const buttonElBasket = document.createElement('button');
+  const buttonBasketReload = document.createElement('button');
   const buttonElFavorites = document.createElement('button');
+  const buttonFavoritesReload = document.createElement('button');
   const img = document.createElement('img');
   const a = document.createElement('a');
   const divButton = document.createElement('div');
@@ -43,6 +45,8 @@ const getBlockLi = (list) => {
   titleElement.textContent = title;
   buttonElBasket.textContent = 'Добавить в корзину';
   buttonElFavorites.textContent = 'Добавить в избранное';
+  buttonBasketReload.textContent = 'Перейти в корзину'
+  buttonFavoritesReload.textContent = 'Перейти в избранное'
   // ссылка на выбранный продукт
   a.href = 'product.html';
   // основная картинка
@@ -60,7 +64,9 @@ const getBlockLi = (list) => {
   divPrice.append(pLastPrice);
   a.append(pElRating);
   divButton.append(buttonElBasket);
+  divButton.append(buttonBasketReload);
   divButton.append(buttonElFavorites);
+  divButton.append(buttonFavoritesReload);
   liEl.append(divButton);
 
   // добавляем атрибуты
@@ -74,6 +80,11 @@ const getBlockLi = (list) => {
   buttonElBasket.classList.add('button-green');
   buttonElFavorites.classList.add('button-green');
   divButton.classList.add('div-button');
+  buttonBasketReload.classList.add('button-grey');
+  buttonBasketReload.setAttribute('onclick', "document.location='/basket.html'");
+  buttonFavoritesReload.classList.add('button-grey');
+  buttonFavoritesReload.setAttribute('onclick', "document.location='/favorites.html'")
+
 
   // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener('click', () => {
@@ -84,21 +95,26 @@ const getBlockLi = (list) => {
   // при клике на кнопку, айди отправляется в корзину
   buttonElBasket.addEventListener('click', () => {
     addToCart(id, 'cartToBasket');
-    buttonElBasket.textContent = 'Перейти в корзину'
-    buttonElBasket.style.color = 'black'
-    buttonElBasket.style.backgroundColor = 'grey'
-    buttonElBasket.setAttribute('onclick', "document.location='/basket.html'");
-    location.reload()
+    buttonElBasket.style.display = 'none'
+    buttonBasketReload.style.display = 'block'
   });
 
   // при клике на кнопку, айди отправляется в избранное
   buttonElFavorites.addEventListener('click', () => {
     addToCart(id, 'cartToFavorites');
-    buttonElFavorites.textContent = 'Перейти в избранное'
-    buttonElFavorites.style.color = 'black'
-    buttonElFavorites.style.backgroundColor = 'grey'
-    buttonElFavorites.setAttribute('onclick', "document.location='/favorites.html'")
-    location.reload()
+    buttonElFavorites.style.display = 'none'
+    buttonFavoritesReload.style.display = 'block'
+  });
+
+  buttonBasketReload.addEventListener('click', () => {
+    buttonElBasket.style.display = 'block'
+    buttonBasketReload.style.display = 'none'
+  });
+
+  // при клике на кнопку, айди отправляется в избранное
+  buttonFavoritesReload.addEventListener('click', () => {
+    buttonElFavorites.style.display = 'block'
+    buttonFavoritesReload.style.display = 'none'
   });
 
   // отправляем готовый блок
