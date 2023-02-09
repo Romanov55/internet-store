@@ -111,7 +111,7 @@ a:hover {
 
 .description-price {
     padding: 0;
-    margin: 0 10px 0 0;
+    margin: 0 10px 5px 0;
     color: red;
 }
 
@@ -119,11 +119,6 @@ a:hover {
     text-decoration: line-through;
     color: grey;
     margin: 0;
-}
-
-#description-button {
-    margin-left: 20px;
-    padding: 0 2rem;
 }
 
 .images img {
@@ -177,15 +172,16 @@ footer {
     background-color: #4CAF50; 
     border: none;
     color: white;
-    padding: 15px 32px;
+    width: 200px;
+    height: 35px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .button-red {
-    background-color: rgb(235, 24, 24); 
+    background-color: rgba(255, 0, 0, 0.904); 
     border: none;
     color: white;
     padding: 15px 32px;
