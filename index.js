@@ -26,6 +26,7 @@ const getBlockLi = (list) => {
   const buttonElFavorites = document.createElement('button');
   const img = document.createElement('img');
   const a = document.createElement('a');
+  const divButton = document.createElement('div')
 
   // именуем данные
   const { id } = list;
@@ -58,8 +59,9 @@ const getBlockLi = (list) => {
   divPrice.append(hPrice)
   divPrice.append(pLastPrice)
   a.append(pElRating);
-  liEl.append(buttonElBasket);
-  liEl.append(buttonElFavorites);
+  divButton.append(buttonElBasket);
+  divButton.append(buttonElFavorites);
+  liEl.append(divButton)
 
   // добавляем атрибуты
   liEl.id = id;
@@ -71,6 +73,7 @@ const getBlockLi = (list) => {
   pLastPrice.classList.add('description-past-price')
   buttonElBasket.classList.add('button-green')
   buttonElFavorites.classList.add('button-green')
+  divButton.classList.add('div-button')
 
   // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener('click', () => {
