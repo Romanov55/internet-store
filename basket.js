@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
           // создаём элементы
             const liEl = document.createElement('li');
             const titleElement = document.createElement('h3');
-            const elPrice = document.createElement('p');
+            const elPrice = document.createElement('h2');
             const buttonDelete = document.createElement('button');
             const img = document.createElement('img');
             const a = document.createElement('a');
@@ -72,6 +72,7 @@ window.addEventListener('load', () => {
             liEl.classList.add('product');
             ulEl.classList.add('full-products');
             buttonDelete.classList.add('button-red');
+            elPrice.classList.add('description-price')
             quantityEl.classList.add('quanity');
             quantityEl.setAttribute('type', 'number');
             quantityEl.setAttribute('min', '1');
