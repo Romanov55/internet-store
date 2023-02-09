@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
         const descriptionPastPrice = document.querySelector('.description-past-price');
         const descriptionStock = document.querySelector('#description-stock');
         const buttonElBasket = document.querySelector('.buttonElBasket');
-        const buttonElFavorite = document.querySelector('.buttonElFavorite');
+        const buttonElFavorites = document.querySelector('.buttonElFavorite');
 
         const { id } = product;
         const { title } = product;
@@ -65,11 +65,19 @@ window.addEventListener('load', () => {
           // при клике на кнопку, айди отправляется в корзину
           buttonElBasket.addEventListener('click', () => {
             addToCart(id, 'cartToBasket');
+            buttonElBasket.textContent = 'Перейти в корзину'
+            buttonElBasket.style.color = 'black'
+            buttonElBasket.style.backgroundColor = 'grey'
+            buttonElBasket.setAttribute('onclick', "document.location='/basket.html'")
           });
 
           // при клике на кнопку, айди отправляется в избранное
-          buttonElFavorite.addEventListener('click', () => {
+          buttonElFavorites.addEventListener('click', () => {
             addToCart(id, 'cartToFavorites');
+            buttonElFavorites.textContent = 'Перейти в избранное'
+            buttonElFavorites.style.color = 'black'
+            buttonElFavorites.style.backgroundColor = 'grey'
+            buttonElFavorites.setAttribute('onclick', "document.location='/favorites.html'")
           });
         }
       });
