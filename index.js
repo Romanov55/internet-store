@@ -20,13 +20,13 @@ const getBlockLi = (list) => {
   const titleElement = document.createElement('h3');
   const divPrice = document.createElement('div');
   const hPrice = document.createElement('h2');
-  const pLastPrice = document.createElement('p')
+  const pLastPrice = document.createElement('p');
   const pElRating = document.createElement('p');
   const buttonElBasket = document.createElement('button');
   const buttonElFavorites = document.createElement('button');
   const img = document.createElement('img');
   const a = document.createElement('a');
-  const divButton = document.createElement('div')
+  const divButton = document.createElement('div');
 
   // именуем данные
   const { id } = list;
@@ -39,7 +39,7 @@ const getBlockLi = (list) => {
 
   // добавляем текст в элементы
   hPrice.textContent = `${price} $`;
-  pElRating.textContent = `Rating: ${rating}`;
+  pElRating.textContent = `Рейтинг: ${rating}`;
   titleElement.textContent = title;
   buttonElBasket.textContent = 'Добавить в корзину';
   buttonElFavorites.textContent = 'Добавить в избранное';
@@ -56,12 +56,12 @@ const getBlockLi = (list) => {
   a.append(img);
   a.append(titleElement);
   a.append(divPrice);
-  divPrice.append(hPrice)
-  divPrice.append(pLastPrice)
+  divPrice.append(hPrice);
+  divPrice.append(pLastPrice);
   a.append(pElRating);
   divButton.append(buttonElBasket);
   divButton.append(buttonElFavorites);
-  liEl.append(divButton)
+  liEl.append(divButton);
 
   // добавляем атрибуты
   liEl.id = id;
@@ -69,11 +69,11 @@ const getBlockLi = (list) => {
   liEl.classList.add(category);
   a.classList.add('link-product');
   divPrice.classList.add('div-price');
-  hPrice.classList.add('description-price')
-  pLastPrice.classList.add('description-past-price')
-  buttonElBasket.classList.add('button-green')
-  buttonElFavorites.classList.add('button-green')
-  divButton.classList.add('div-button')
+  hPrice.classList.add('description-price');
+  pLastPrice.classList.add('description-past-price');
+  buttonElBasket.classList.add('button-green');
+  buttonElFavorites.classList.add('button-green');
+  divButton.classList.add('div-button');
 
   // при клике на товар передаём в локальное хранилище айди этого товара
   a.addEventListener('click', () => {
@@ -84,11 +84,19 @@ const getBlockLi = (list) => {
   // при клике на кнопку, айди отправляется в корзину
   buttonElBasket.addEventListener('click', () => {
     addToCart(id, 'cartToBasket');
+    buttonElBasket.textContent = 'Перейти в корзину'
+    buttonElBasket.style.color = 'black'
+    buttonElBasket.style.backgroundColor = 'grey'
+    buttonElBasket.setAttribute('onclick', "document.location='/basket.html'")
   });
 
   // при клике на кнопку, айди отправляется в избранное
   buttonElFavorites.addEventListener('click', () => {
     addToCart(id, 'cartToFavorites');
+    buttonElFavorites.textContent = 'Перейти в избранное'
+    buttonElFavorites.style.color = 'black'
+    buttonElFavorites.style.backgroundColor = 'grey'
+    buttonElFavorites.setAttribute('onclick', "document.location='/favorites.html'")
   });
 
   // отправляем готовый блок

@@ -72,7 +72,7 @@ window.addEventListener('load', () => {
             liEl.classList.add('product');
             ulEl.classList.add('full-products');
             buttonDelete.classList.add('button-red');
-            elPrice.classList.add('description-price')
+            elPrice.classList.add('description-price');
             quantityEl.classList.add('quanity');
             quantityEl.setAttribute('type', 'number');
             quantityEl.setAttribute('min', '1');
